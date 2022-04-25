@@ -1,1 +1,56 @@
-/* Not yet started */
+@font-face {
+  font-family: "digital-7";
+  src: url("./fonts/digital-7.ttf");
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  background-color: rgb(240, 240, 240);
+}
+
+#calculator {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: lightblue;
+  padding: 16px;
+  border-radius: 16px;
+}
+
+#display {
+  font-family: "digital-7", sans-serif;
+  font-size: 52px;
+  text-align: right;
+  margin: 4px;
+  padding: 8px 4px 4px;
+  border-radius: 8px;
+  background-color: rgb(150, 150, 150);
+  color: rgb(40, 40, 40);
+}
+
+#buttons {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 20% 20% 20% 20% 20%;
+}
+
+button {
+  margin: 4px;
+  font-size: 30px;
+  font-family: "Century Gothic", sans-serif;
+  font-weight: bold;
+  border: 0;
+  border-radius: 8px;
+}
+
+#clear {
+  grid-column-start: 3;
+}
