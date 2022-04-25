@@ -47,7 +47,6 @@ button {
   font-size: 30px;
   font-family: "Century Gothic", sans-serif;
   font-weight: bold;
-  border: 0;
   border-radius: 8px;
 }
  
@@ -57,33 +56,56 @@ button {
 
 #clear, #erase {
   background-color: rgb(255, 255, 140);
+  border: 2px solid rgb(255, 255, 140);
 }
 
 #clear:hover, #erase:hover {
   background-color: rgb(245, 245, 130);
+  border-color: rgb(245, 245, 130);
+}
+
+#clear:active, #erase:active {
+  border-color: rgb(155, 155, 40);
 }
 
 .numeric {
   background-color: rgb(240, 240, 240);
+  border: 2px solid rgb(240, 240, 240);
 }
 
 .numeric:hover {
   background-color: rgb(230, 230, 230);
+  border-color: rgb(230, 230, 230);
+}
+
+.numeric:active {
+  border-color: rgb(140, 140, 140);
 }
 
 .operation {
   background-color: rgb(220, 220, 220);
+  border: 2px solid rgb(220, 220, 220);
 }
 
 .operation:hover {
   background-color: rgb(210, 210, 210);
+  border-color: rgb(210, 210, 210);
+}
+
+.operation:active {
+  border-color: rgb(120, 120, 120);
 }
 
 #equals {
   background-color: rgb(240, 135, 135);
+  border: 2px solid rgb(240, 135, 135);
 }
 
 #equals:hover {
   background-color: rgb(230, 125, 125);
+  border-color: rgb(230, 125, 125);
 }
 
+#equals:active {
+  border-color: rgb(140, 35, 35);
+}
