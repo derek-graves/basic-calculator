@@ -50,7 +50,40 @@ button {
   border: 0;
   border-radius: 8px;
 }
-
+ 
 #clear {
   grid-column-start: 3;
 }
+
+#clear, #erase {
+  background-color: rgb(255, 255, 140);
+}
+
+#clear:hover, #erase:hover {
+  background-color: rgb(245, 245, 130);
+}
+
+.numeric {
+  background-color: rgb(240, 240, 240);
+}
+
+.numeric:hover {
+  background-color: rgb(230, 230, 230);
+}
+
+.operation {
+  background-color: rgb(220, 220, 220);
+}
+
+.operation:hover {
+  background-color: rgb(210, 210, 210);
+}
+
+#equals {
+  background-color: rgb(240, 135, 135);
+}
+
+#equals:hover {
+  background-color: rgb(230, 125, 125);
+}
+
