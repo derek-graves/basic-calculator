@@ -120,3 +120,24 @@ nineButton.addEventListener('click', nine);
 
 const zeroButton = document.querySelector('#zero');
 zeroButton.addEventListener('click', zero);
+
+const decimalButton = document.querySelector('#decimal');
+decimalButton.addEventListener('click', () => {
+  const decimalCount = (display.textContent.match(/\./g) || []).length;
+  console.log(decimalCount);
+  if (decimalCount === 0) {
+    display.textContent += ".";
+  }
+});
+
+const backspaceButton = document.querySelector('#erase');
+backspaceButton.addEventListener('click', () => {
+  display.textContent = display.textContent.slice(0,-1);
+});
+
+const clearButton = document.querySelector('#clear');
+clearButton.addEventListener('click', () => {
+  display.textContent = "";
+});
+
+
