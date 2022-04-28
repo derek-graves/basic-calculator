@@ -1,3 +1,9 @@
+let operand1 = "";
+let operand2 = "";
+let operation = "";
+let inActiveOperation = false;
+let display = document.querySelector('#display');
+
 function add (a, b) {
   return a + b;
 }
@@ -11,6 +17,9 @@ function multiply (a, b) {
 }
 
 function divide (a, b) {
+  if (b === 0) {
+    return "ERROR";
+  }
   return a / b;
 }
 
@@ -20,7 +29,7 @@ function operate (operator, a, b) {
       return add(a,b);
     case '-':
       return subtract(a,b);
-    case '*':
+    case '×':
       return multiply(a,b);
     case '/':
       return divide(a,b);
@@ -29,102 +38,29 @@ function operate (operator, a, b) {
   }
 }
 
-let display = document.querySelector('#display');
+const numbers = Array.from(document.querySelectorAll('.numeric'));
+numbers.forEach((button) => {
+  button.addEventListener('click', () => {
+    if (display.textContent === operand1) {
+      display.textContent = button.textContent;
+    } else if (display.textContent === "ERROR") {
+      clearAll();
+      display.textContent = button.textContent;
+    } else {
+      if (display.textContent.length < 11) {
+       display.textContent += button.textContent;
+      }
+    }
+  });
+});
 
-function one () {
-  if (display.textContent.length < 11) {
-    display.textContent += "1";
-  }
+function countDecimal () {
+  return (display.textContent.match(/\./g) || []).length;
 }
-
-function two () {
-  if (display.textContent.length < 11) {
-    display.textContent += "2";
-  }
-}
-
-function three () {
-  if (display.textContent.length < 11) {
-    display.textContent += "3";
-  }
-}
-
-function four () {
-  if (display.textContent.length < 11) {
-    display.textContent += "4";
-  }
-}
-
-function five () {
-  if (display.textContent.length < 11) {
-    display.textContent += "5";
-  }
-}
-
-function six () {
-  if (display.textContent.length < 11) {
-    display.textContent += "6";
-  }
-}
-
-function seven () {
-  if (display.textContent.length < 11) {
-    display.textContent += "7";
-  }
-}
-
-function eight () {
-  if (display.textContent.length < 11) {
-    display.textContent += "8";
-  }
-}
-
-function nine () {
-  if (display.textContent.length < 11) {
-    display.textContent += "9";
-  }
-}
-
-function zero () {
-  if (display.textContent.length < 11) {
-    display.textContent += "0";
-  }
-}
-
-const oneButton = document.querySelector('#one');
-oneButton.addEventListener('click', one);
-
-const twoButton = document.querySelector('#two');
-twoButton.addEventListener('click', two);
-
-const threeButton = document.querySelector('#three');
-threeButton.addEventListener('click', three);
-
-const fourButton = document.querySelector('#four');
-fourButton.addEventListener('click', four);
-
-const fiveButton = document.querySelector('#five');
-fiveButton.addEventListener('click', five);
-
-const sixButton = document.querySelector('#six');
-sixButton.addEventListener('click', six);
-
-const sevenButton = document.querySelector('#seven');
-sevenButton.addEventListener('click', seven);
-
-const eightButton = document.querySelector('#eight');
-eightButton.addEventListener('click', eight);
-
-const nineButton = document.querySelector('#nine');
-nineButton.addEventListener('click', nine);
-
-const zeroButton = document.querySelector('#zero');
-zeroButton.addEventListener('click', zero);
 
 const decimalButton = document.querySelector('#decimal');
 decimalButton.addEventListener('click', () => {
-  const decimalCount = (display.textContent.match(/\./g) || []).length;
-  console.log(decimalCount);
+  const decimalCount = countDecimal();
   if (decimalCount === 0) {
     display.textContent += ".";
   }
@@ -135,9 +71,38 @@ backspaceButton.addEventListener('click', () => {
   display.textContent = display.textContent.slice(0,-1);
 });
 
-const clearButton = document.querySelector('#clear');
-clearButton.addEventListener('click', () => {
+function clearAll () {
   display.textContent = "";
+  operand1 = "";
+  operand2 = "";
+  operation = "";
+  inActiveOperation = false;
+}
+
+const clearButton = document.querySelector('#clear');
+clearButton.addEventListener('click', clearAll)
+
+const operationButtons = Array.from(document.querySelectorAll('.operation'));
+operationButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    inActiveOperation = true;
+    operand1 = display.textContent;
+    operation = button.textContent;
+  });
 });
+
+const equalsButton = document.querySelector('#equals');
+equalsButton.addEventListener('click', () => {
+  if (!inActiveOperation) {
+    display.textContent = "ERROR";
+  } else {
+    operand2 = display.textContent;
+    display.textContent = operate(operation, Number(operand1), Number(operand2));
+    operand1 = "";
+    operand2 = "";
+    operation = "";
+    inActiveOperation = false;
+  }
+}); 
 
 
