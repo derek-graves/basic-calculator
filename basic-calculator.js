@@ -27,7 +27,7 @@ function operate (operator, a, b) {
   switch (operator) {
     case '+':
       return add(a,b);
-    case '-':
+    case '–':
       return subtract(a,b);
     case '×':
       return multiply(a,b);
@@ -93,9 +93,7 @@ operationButtons.forEach((button) => {
 
 const equalsButton = document.querySelector('#equals');
 equalsButton.addEventListener('click', () => {
-  if (!inActiveOperation) {
-    display.textContent = "ERROR";
-  } else {
+  if (inActiveOperation) {
     operand2 = display.textContent;
     display.textContent = operate(operation, Number(operand1), Number(operand2));
     operand1 = "";
