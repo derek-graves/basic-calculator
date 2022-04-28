@@ -69,17 +69,17 @@ button {
   border-color: rgb(155, 155, 40);
 }
 
-.numeric {
+.numeric, #decimal {
   background-color: rgb(240, 240, 240);
   border: 2px solid rgb(240, 240, 240);
 }
 
-.numeric:hover {
+.numeric:hover, #decimal:hover {
   background-color: rgb(230, 230, 230);
   border-color: rgb(230, 230, 230);
 }
 
-.numeric:active {
+.numeric:active, #decimal:active {
   border-color: rgb(140, 140, 140);
 }
 
