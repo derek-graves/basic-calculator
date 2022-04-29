@@ -2,6 +2,7 @@ let operand1 = "";
 let operand2 = "";
 let operation = "";
 let inActiveOperation = false;
+let backspaceValid = true;
 let display = document.querySelector('#display');
 
 function add (a, b) {
@@ -68,7 +69,9 @@ decimalButton.addEventListener('click', () => {
 
 const backspaceButton = document.querySelector('#erase');
 backspaceButton.addEventListener('click', () => {
-  display.textContent = display.textContent.slice(0,-1);
+  if (backspaceValid) {
+    display.textContent = display.textContent.slice(0,-1);
+  }
 });
 
 function clearAll () {
@@ -76,6 +79,7 @@ function clearAll () {
   operand1 = "";
   operand2 = "";
   operation = "";
+  backspaceValid = true;
   inActiveOperation = false;
 }
 
@@ -86,6 +90,7 @@ const operationButtons = Array.from(document.querySelectorAll('.operation'));
 operationButtons.forEach((button) => {
   button.addEventListener('click', () => {
     inActiveOperation = true;
+    backspaceValid = true;
     operand1 = display.textContent;
     operation = button.textContent;
   });
@@ -100,7 +105,13 @@ equalsButton.addEventListener('click', () => {
     operand2 = "";
     operation = "";
     inActiveOperation = false;
+    backspaceValid = false;
   }
 }); 
 
-
+function formatOutput(text) {
+  string = String(text);
+  if (string.length <= 11) {
+    return string;
+  }
+} 
