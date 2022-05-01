@@ -28,7 +28,7 @@ numbers.forEach((button) => {
   button.addEventListener('click', () => {
     if (display.textContent === operand1) {
       display.textContent = button.textContent;
-    } else if (display.textContent === "ERROR") {
+    } else if (display.textContent === "ERROR" || display.textContent === "TOO LARGE") {
       clearAll();
       display.textContent = button.textContent;
     } else {
@@ -121,5 +121,9 @@ function roundPrecisely(number) {
   const moveDecimal = preparedNumber.slice(0,decimalIndex) + preparedNumber.slice(decimalIndex + 1, -1) + "." + preparedNumber.charAt(preparedNumber.length - 1);
   const rounded = String(Math.round(Number(moveDecimal)));
   const restoreDecimal = rounded.slice(0,decimalIndex) + "." + rounded.slice(decimalIndex);
+  
+  if (restoreDecimal.charAt(restoreDecimal.length - 1) === ".") {
+    return restoreDecimal.slice(0,-1);
+  }
   return restoreDecimal;
 }
