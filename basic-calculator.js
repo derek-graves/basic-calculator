@@ -39,13 +39,13 @@ numbers.forEach((button) => {
   });
 });
 
-function countDecimal () {
-  return (display.textContent.match(/\./g) || []).length;
+function countDecimal (text) {
+  return (text.match(/\./g) || []).length;
 }
 
 const decimalButton = document.querySelector('#decimal');
 decimalButton.addEventListener('click', () => {
-  const decimalCount = countDecimal();
+  const decimalCount = countDecimal(display.textContent);
   if (decimalCount === 0) {
     display.textContent += ".";
   }
@@ -84,7 +84,8 @@ const equalsButton = document.querySelector('#equals');
 equalsButton.addEventListener('click', () => {
   if (inActiveOperation) {
     operand2 = display.textContent;
-    display.textContent = operate(operation, Number(operand1), Number(operand2));
+    result = operate(operation, Number(operand1), Number(operand2));
+    display.textContent = formatOutput(result);
     operand1 = "";
     operand2 = "";
     operation = "";
@@ -93,9 +94,32 @@ equalsButton.addEventListener('click', () => {
   }
 }); 
 
-function formatOutput(text) {
-  string = String(text);
+function formatOutput(number) {
+  string = String(number);
   if (string.length <= 11) {
     return string;
+  } else if (countDecimal(string) === 0 || digitsBeforeDecimal(number) >= 11) {
+    return "TOO LARGE";
+  } else {
+    return roundPrecisely(number);
   }
-} 
+}
+
+function digitsBeforeDecimal(number) {
+  number = String(number);
+  let digits = 0;
+  for (let i = 0; i < number.length; i++) {
+    if (number[i] === ".") {return digits;}
+    digits++;
+  }
+  return digits;
+}
+
+function roundPrecisely(number) {
+  const preparedNumber = String(number).slice(0,12);
+  const decimalIndex = digitsBeforeDecimal(number);
+  const moveDecimal = preparedNumber.slice(0,decimalIndex) + preparedNumber.slice(decimalIndex + 1, -1) + "." + preparedNumber.charAt(preparedNumber.length - 1);
+  const rounded = String(Math.round(Number(moveDecimal)));
+  const restoreDecimal = rounded.slice(0,decimalIndex) + "." + rounded.slice(decimalIndex);
+  return restoreDecimal;
+}
