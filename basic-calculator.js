@@ -73,10 +73,12 @@ clearButton.addEventListener('click', clearAll)
 const operationButtons = Array.from(document.querySelectorAll('.operation'));
 operationButtons.forEach((button) => {
   button.addEventListener('click', () => {
-    inActiveOperation = true;
-    backspaceValid = true;
-    operand1 = display.textContent;
-    operation = button.textContent;
+    if (display.textContent != "ERROR" && display.textContent != "TOO LARGE") {
+      inActiveOperation = true;
+      backspaceValid = true;
+      operand1 = display.textContent;
+      operation = button.textContent;
+    }
   });
 });
 
