@@ -1,8 +1,10 @@
 let operand1 = "";
 let operand2 = "";
 let operation = "";
+let postEquals = false;
 let inActiveOperation = false;
 let backspaceValid = true;
+//let decimalValid = true;
 let display = document.querySelector('#display');
 
 function operate (operator, a, b) {
@@ -26,14 +28,16 @@ function operate (operator, a, b) {
 const numbers = Array.from(document.querySelectorAll('.numeric'));
 numbers.forEach((button) => {
   button.addEventListener('click', () => {
-    if (display.textContent === operand1) {
-      display.textContent = button.textContent;
-    } else if (display.textContent === "ERROR" || display.textContent === "TOO LARGE") {
-      clearAll();
-      display.textContent = button.textContent;
-    } else {
-      if (display.textContent.length < 11) {
-       display.textContent += button.textContent;
+    if (!postEquals) {
+      if (display.textContent === operand1) {
+        display.textContent = button.textContent;
+      } else if (display.textContent === "ERROR" || display.textContent === "TOO LARGE") {
+        clearAll();
+        display.textContent = button.textContent;
+      } else {
+        if (display.textContent.length < 11) {
+        display.textContent += button.textContent;
+        }
       }
     }
   });
@@ -43,11 +47,23 @@ function countDecimal (text) {
   return (text.match(/\./g) || []).length;
 }
 
-const decimalButton = document.querySelector('#decimal');
+const decimalButton = document.querySelector('#decimal'); //.3 + .3 becomes .3 + 3
 decimalButton.addEventListener('click', () => {
   const decimalCount = countDecimal(display.textContent);
-  if (decimalCount === 0) {
-    display.textContent += ".";
+  if (display.textContent === operand1) {
+    display.textContent = decimalButton.textContent;
+    //decimalValid = false;
+  } else if (decimalCount === 0) {
+    if (display.textContent === "ERROR" || display.textContent === "TOO LARGE") {
+      clearAll();
+      display.textContent = decimalButton.textContent;
+      //decimalValid = false;
+    } else {
+      if (display.textContent.length < 11) {
+       display.textContent += decimalButton.textContent;
+       //decimalValid = false;
+      }
+    }
   }
 });
 
@@ -63,6 +79,7 @@ function clearAll () {
   operand1 = "";
   operand2 = "";
   operation = "";
+  postEquals = false;
   backspaceValid = true;
   inActiveOperation = false;
 }
@@ -74,6 +91,7 @@ const operationButtons = Array.from(document.querySelectorAll('.operation'));
 operationButtons.forEach((button) => {
   button.addEventListener('click', () => {
     if (display.textContent != "ERROR" && display.textContent != "TOO LARGE") {
+      postEquals = false;
       inActiveOperation = true;
       backspaceValid = true;
       operand1 = display.textContent;
@@ -91,6 +109,7 @@ equalsButton.addEventListener('click', () => {
     operand1 = "";
     operand2 = "";
     operation = "";
+    postEquals = true;
     inActiveOperation = false;
     backspaceValid = false;
   }
