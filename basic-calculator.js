@@ -122,7 +122,7 @@ function formatOutput(number) {
   } else if (countDecimal(string) === 0 || digitsBeforeDecimal(number) >= 11) {
     return "TOO LARGE";
   } else {
-    return roundPrecisely(number);
+    return roundPrecisely(number, 10);
   }
 }
 
@@ -136,6 +136,11 @@ function digitsBeforeDecimal(number) {
   return digits;
 }
 
+function roundPrecisely(number, accuracy) {
+  return Number(Math.round(number + 'e' + accuracy) + 'e-' + accuracy);
+}
+
+/*
 function roundPrecisely(number) {
   const preparedNumber = String(number).slice(0,12);
   const decimalIndex = digitsBeforeDecimal(number);
@@ -148,3 +153,4 @@ function roundPrecisely(number) {
   }
   return restoreDecimal;
 }
+*/
