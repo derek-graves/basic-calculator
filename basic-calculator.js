@@ -122,7 +122,7 @@ function formatOutput(number) {
   } else if (countDecimal(string) === 0 || digitsBeforeDecimal(number) >= 11) {
     return "TOO LARGE";
   } else {
-    return roundPrecisely(number, 10);
+    return roundPrecisely(number, 9);
   }
 }
 
