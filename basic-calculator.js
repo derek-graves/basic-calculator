@@ -139,18 +139,3 @@ function digitsBeforeDecimal(number) {
 function roundPrecisely(number, accuracy) {
   return Number(Math.round(number + 'e' + accuracy) + 'e-' + accuracy);
 }
-
-/*
-function roundPrecisely(number) {
-  const preparedNumber = String(number).slice(0,12);
-  const decimalIndex = digitsBeforeDecimal(number);
-  const moveDecimal = preparedNumber.slice(0,decimalIndex) + preparedNumber.slice(decimalIndex + 1, -1) + "." + preparedNumber.charAt(preparedNumber.length - 1);
-  const rounded = String(Math.round(Number(moveDecimal)));
-  const restoreDecimal = rounded.slice(0,decimalIndex) + "." + rounded.slice(decimalIndex);
-  
-  if (restoreDecimal.charAt(restoreDecimal.length - 1) === ".") {
-    return restoreDecimal.slice(0,-1);
-  }
-  return restoreDecimal;
-}
-*/
