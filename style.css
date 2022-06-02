@@ -51,21 +51,17 @@ button {
   border-radius: 8px;
 }
  
-#clear {
-  grid-column-start: 3;
-}
-
-#clear, #erase {
+.toprow {
   background-color: rgb(255, 255, 140);
   border: 2px solid rgb(255, 255, 140);
 }
 
-#clear:hover, #erase:hover {
+.toprow:hover {
   background-color: rgb(245, 245, 130);
   border-color: rgb(245, 245, 130);
 }
 
-#clear:active, #erase:active {
+.toprow:active {
   border-color: rgb(155, 155, 40);
 }
 
