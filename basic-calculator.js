@@ -4,7 +4,7 @@ let operation = "";
 let postEquals = false;
 let inActiveOperation = false;
 let backspaceValid = true;
-//let decimalValid = true;
+let percentValid = true;
 let display = document.querySelector('#display');
 
 function operate (operator, a, b) {
@@ -47,21 +47,18 @@ function countDecimal (text) {
   return (text.match(/\./g) || []).length;
 }
 
-const decimalButton = document.querySelector('#decimal'); //.3 + .3 becomes .3 + 3
+const decimalButton = document.querySelector('#decimal'); 
 decimalButton.addEventListener('click', () => {
   const decimalCount = countDecimal(display.textContent);
   if (display.textContent === operand1) {
     display.textContent = decimalButton.textContent;
-    //decimalValid = false;
   } else if (decimalCount === 0) {
     if (display.textContent === "ERROR" || display.textContent === "TOO LARGE") {
       clearAll();
       display.textContent = decimalButton.textContent;
-      //decimalValid = false;
     } else {
       if (display.textContent.length < 11) {
        display.textContent += decimalButton.textContent;
-       //decimalValid = false;
       }
     }
   }
@@ -82,6 +79,7 @@ function clearAll () {
   postEquals = false;
   backspaceValid = true;
   inActiveOperation = false;
+  percentValid = true;
 }
 
 const clearButton = document.querySelector('#clear');
@@ -94,6 +92,7 @@ operationButtons.forEach((button) => {
       postEquals = false;
       inActiveOperation = true;
       backspaceValid = true;
+      percentValid = true;
       operand1 = display.textContent;
       operation = button.textContent;
     }
@@ -112,6 +111,7 @@ equalsButton.addEventListener('click', () => {
     postEquals = true;
     inActiveOperation = false;
     backspaceValid = false;
+    percentValid = true;
   }
 }); 
 
@@ -139,3 +139,20 @@ function digitsBeforeDecimal(number) {
 function roundPrecisely(number, accuracy) {
   return Number(Math.round(number + 'e' + accuracy) + 'e-' + accuracy);
 }
+
+const percentButton = document.querySelector('#percent');
+percentButton.addEventListener('click', () => {
+  if (display.textContent !== "" && percentValid) {
+    percentResult = operate('/', Number(display.textContent), 100);
+    display.textContent = formatOutput(percentResult);
+    percentValid = false;
+  }
+});
+
+const plusminusButton = document.querySelector('#plusminus');
+plusminusButton.addEventListener('click', () => {
+  if (display.textContent !== "") {
+    plusminusResult = operate('×', Number(display.textContent), -1);
+    display.textContent = formatOutput(plusminusResult);
+  }
+});
