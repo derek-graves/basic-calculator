@@ -116,6 +116,9 @@ equalsButton.addEventListener('click', () => {
 }); 
 
 function formatOutput(number) {
+  if (isNaN(number)) {
+    return "ERROR";
+  }
   string = String(number);
   if (string.length <= 11) {
     return string;
