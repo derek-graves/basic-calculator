@@ -159,3 +159,9 @@ plusminusButton.addEventListener('click', () => {
     display.textContent = formatOutput(plusminusResult);
   }
 });
+
+window.addEventListener('keydown', (event) => {
+  const key = document.querySelector(`button[data-key='${event.keyCode}']`);
+  console.log(key);
+  key.click();
+});
