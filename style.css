@@ -89,7 +89,7 @@ button {
   border-color: rgb(210, 210, 210);
 }
 
-.operation:active {
+.operation:focus {
   border-color: rgb(120, 120, 120);
 }
 
